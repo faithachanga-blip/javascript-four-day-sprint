@@ -60,7 +60,8 @@ console.log(getDiscountedTotal(80, true));    // 72
 console.log(getDiscountedTotal(49.99, true)); // 49.99
 console.log(getDiscountedTotal(-5, true));    // nulls
 
-js
+
+
 function gradeLabel(score) {
   if (score < 0 || score > 100) return "Invalid";
   if (score >= 90) return "A";
