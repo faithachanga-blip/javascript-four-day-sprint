@@ -31,38 +31,32 @@ const hours = Math.floor(totalMinutes / 60);
 const minutes = totalMinutes % 60;
 console.log(`${hours} hours and ${minutes} minutes`);
 
-
-// Item 2: let is for a value that changes
 let quantityInCart = 3;
 quantityInCart = 5;
 console.log("Quantity now:", quantityInCart);
 
-// Item 3: separate total with parentheses
 const total = subtotal + tax;
 console.log("Subtotal:", subtotal, "Tax:", tax, "Total:", total);
 
-// Challenge 1, version 1: plain expressions
 const wholeHours = (137 - (137 % 60)) / 60;
 const leftoverMinutes = 137 - (wholeHours * 60);
 console.log(`Version 1: ${wholeHours} hours and ${leftoverMinutes} minutes`);
-
-// Challenge 1, version 2: Math.floor and remainder
 console.log(`Version 2: ${Math.floor(137 / 60)} hours and ${137 % 60} minutes`);
 
+// Block 2
 function getDiscountedTotal(total, member) {
   if (!Number.isFinite(total) || total < 0) return null;
   if (member && total >= 50) return total * 0.9;
   return total;
 }
 
-console.log(getDiscountedTotal(50, true));    // 45
-console.log(getDiscountedTotal(80, false));   // 80
-console.log(getDiscountedTotal(80, true));    // 72
-console.log(getDiscountedTotal(49.99, true)); // 49.99
-console.log(getDiscountedTotal(-5, true));    // nulls
+console.log(getDiscountedTotal(50, true));
+console.log(getDiscountedTotal(80, false));
+console.log(getDiscountedTotal(80, true));
+console.log(getDiscountedTotal(49.99, true));
+console.log(getDiscountedTotal(-5, true));
 
-
-
+// Logic Challenge 2
 function gradeLabel(score) {
   if (score < 0 || score > 100) return "Invalid";
   if (score >= 90) return "A";
@@ -72,25 +66,27 @@ function gradeLabel(score) {
   return "F";
 }
 
-console.log(gradeLabel(89));   // B
-console.log(gradeLabel(90));   // A
-console.log(gradeLabel(0));    // F
-console.log(gradeLabel(100));  // A
-console.log(gradeLabel(-1));   // Invalid
-console.log(gradeLabel(101));  // Invalid
+console.log(gradeLabel(89));
+console.log(gradeLabel(90));
+console.log(gradeLabel(0));
+console.log(gradeLabel(100));
+console.log(gradeLabel(-1));
+console.log(gradeLabel(101));
 
+// Block 3
 const prices = [5, 12, 25, 8, 30];
 let sum = 0;
 let countAbove20 = 0;
 
-for (const price of prices) {
-  sum = sum + price;
-  if (price > 20) countAbove20 = countAbove20 + 1;
+for (const p of prices) {
+  sum = sum + p;
+  if (p > 20) countAbove20 = countAbove20 + 1;
 }
 
-console.log("Total:", sum);              // 80
-console.log("Above 20:", countAbove20);  // 2
+console.log("Total:", sum);
+console.log("Above 20:", countAbove20);
 
+// Logic Challenge 3
 function fizzBuzz(limit) {
   const results = [];
   for (let n = 1; n <= limit; n++) {
@@ -110,15 +106,13 @@ function fizzBuzz(limit) {
 console.log(fizzBuzz(15));
 console.log(fizzBuzz(16));
 
+// Block 4
 function calculateLineTotal(price, quantity) {
   if (!Number.isFinite(price) || !Number.isInteger(quantity) || price < 0 || quantity < 0) {
     throw new Error("Price and quantity must be valid non-negative numbers.");
   }
   return price * quantity;
 }
-
-console.log(calculateLineTotal(12.5, 3)); // 37.5
-console.log(calculateLineTotal(10, 0));   // 0
 
 function calculateTax(amount, rate = 0.08) {
   if (!Number.isFinite(amount) || amount < 0) {
@@ -131,21 +125,17 @@ function formatMoney(amount) {
   return "$" + amount.toFixed(2);
 }
 
-console.log(calculateTax(37.5));              // 3
-console.log(formatMoney(40.5));               // $40.50
-console.log(formatMoney(calculateTax(37.5))); // $3.00s
-
 function printReceipt(items) {
-  let subtotal = 0;
+  let receiptSubtotal = 0;
   for (const item of items) {
     const lineTotal = calculateLineTotal(item.price, item.quantity);
     console.log(`${item.name} x${item.quantity}: ${formatMoney(lineTotal)}`);
-    subtotal = subtotal + lineTotal;
+    receiptSubtotal = receiptSubtotal + lineTotal;
   }
-  const tax = calculateTax(subtotal);
-  console.log("Subtotal:", formatMoney(subtotal));
-  console.log("Tax:", formatMoney(tax));
-  console.log("Total:", formatMoney(subtotal + tax));
+  const receiptTax = calculateTax(receiptSubtotal);
+  console.log("Subtotal:", formatMoney(receiptSubtotal));
+  console.log("Tax:", formatMoney(receiptTax));
+  console.log("Total:", formatMoney(receiptSubtotal + receiptTax));
 }
 
 printReceipt([
@@ -153,79 +143,27 @@ printReceipt([
   { name: "Pen", price: 2, quantity: 4 }
 ]);
 
-console.log(calculateLineTotal(10, 0));       // 0 (zero quantity)
-console.log(calculateLineTotal(0.1, 3));      // decimal price, see what prints
+// Six manual tests
+console.log(calculateLineTotal(10, 0));
+console.log(calculateLineTotal(0.1, 3));
 try {
-  calculateLineTotal(-5, 2);                  // negative price
+  calculateLineTotal(-5, 2);
 } catch (error) {
   console.log("Caught:", error.message);
 }
 try {
-  calculateLineTotal("abc", 2);               // invalid price
+  calculateLineTotal("abc", 2);
 } catch (error) {
   console.log("Caught:", error.message);
 }
-
-
-
-
-console.log(formatMoney(0));               // $0.00
+console.log(formatMoney(0));
 try {
-  calculateTax(-1);                        // negative amount
+  calculateTax(-1);
 } catch (error) {
   console.log("Caught:", error.message);
 }
 
-function calculateDiscountedLineTotal(price, quantity) {
-  const lineTotal = calculateLineTotal(price, quantity);
-  // if quantity is above 5, return lineTotal with 5% off
-  // otherwise return lineTotal
-}s
-
-const line1 = calculateDiscountedLineTotal(10, 6);  // quantity 6, gets 5% off
-const line2 = calculateDiscountedLineTotal(4, 2);   // quantity 2, no discount
-
-const subtotalBeforeTax = line1 + line2;
-const taxAfterDiscount = calculateTax(subtotalBeforeTax);
-const finalTotal = subtotalBeforeTax + taxAfterDiscount;
-
-console.log("Subtotal before tax:", formatMoney(subtotalBeforeTax));
-console.log("Tax:", formatMoney(taxAfterDiscount));
-console.log("Final total:", formatMoney(finalTotal));
-
-const taxIfBeforeDiscount = calculateTax(10 * 6 + 4 * 2);
-console.log("Tax after discount:", formatMoney(taxAfterDiscount));      // $5.20
-console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));  // $5.44
-console.log("Tax was taken after discount:", taxAfterDiscount < 
-
-function calculateDiscountedLineTotal(price, quantity) {
-  const lineTotal = calculateLineTotal(price, quantity);
-  // if quantity is above 5, return lineTotal with 5% off
-  // otherwise return lineTotal
-
-const line1 = calculateDiscountedLineTotal(10, 6);  // quantity 6, gets 5% off
-const line2 = calculateDiscountedLineTotal(4, 2);   // quantity 2, no discount
-
-const subtotalBeforeTax = line1 + line2;
-const taxAfterDiscount = calculateTax(subtotalBeforeTax);
-const finalTotal = subtotalBeforeTax + taxAfterDiscount;
-
-console.log("Subtotal before tax:", formatMoney(subtotalBeforeTax));
-console.log("Tax:", formatMoney(taxAfterDiscount));
-console.log("Final total:", formatMoney(finalTotal));
-
-const taxIfBeforeDiscount = calculateTax(10 * 6 + 4 * 2);
-console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));
-console.log("Tax was taken after discount:", taxAfterDiscount < taxIfBeforeDiscount);
-
-console.log("Subtotal before tax:", formatMoney(subtotalBeforeTax));
-console.log("Tax:", formatMoney(taxAfterDiscount));
-console.log("Final total:", formatMoney(finalTotal));
-console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));
-console.log("Tax was taken after discount:", taxAfterDiscount < taxIfBeforeDiscount);}
-
-
-
+// Logic Challenge 4
 function calculateDiscountedLineTotal(price, quantity) {
   const lineTotal = calculateLineTotal(price, quantity);
   if (quantity > 5) return lineTotal * 0.95;
@@ -246,10 +184,3 @@ console.log("Final total:", formatMoney(finalTotal));
 const taxIfBeforeDiscount = calculateTax(10 * 6 + 4 * 2);
 console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));
 console.log("Tax was taken after discount:", taxAfterDiscount < taxIfBeforeDiscount);
-
-
-}try {
-  calculateTax(-1);
-} catch (error) {
-  console.log("Caught:", error.message);
-}
