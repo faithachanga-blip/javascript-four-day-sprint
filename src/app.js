@@ -77,3 +77,15 @@ console.log(gradeLabel(0));    // F
 console.log(gradeLabel(100));  // A
 console.log(gradeLabel(-1));   // Invalid
 console.log(gradeLabel(101));  // Invalid
+
+const prices = [5, 12, 25, 8, 30];
+let sum = 0;
+let countAbove20 = 0;
+
+for (const price of prices) {
+  sum = sum + price;
+  if (price > 20) countAbove20 = countAbove20 + 1;
+}
+
+console.log("Total:", sum);              // 80
+console.log("Above 20:", countAbove20);  // 2
