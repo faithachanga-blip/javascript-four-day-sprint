@@ -31,6 +31,7 @@ const hours = Math.floor(totalMinutes / 60);
 const minutes = totalMinutes % 60;
 console.log(`${hours} hours and ${minutes} minutes`);
 
+
 // Item 2: let is for a value that changes
 let quantityInCart = 3;
 quantityInCart = 5;
@@ -196,3 +197,59 @@ const taxIfBeforeDiscount = calculateTax(10 * 6 + 4 * 2);
 console.log("Tax after discount:", formatMoney(taxAfterDiscount));      // $5.20
 console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));  // $5.44
 console.log("Tax was taken after discount:", taxAfterDiscount < 
+
+function calculateDiscountedLineTotal(price, quantity) {
+  const lineTotal = calculateLineTotal(price, quantity);
+  // if quantity is above 5, return lineTotal with 5% off
+  // otherwise return lineTotal
+
+const line1 = calculateDiscountedLineTotal(10, 6);  // quantity 6, gets 5% off
+const line2 = calculateDiscountedLineTotal(4, 2);   // quantity 2, no discount
+
+const subtotalBeforeTax = line1 + line2;
+const taxAfterDiscount = calculateTax(subtotalBeforeTax);
+const finalTotal = subtotalBeforeTax + taxAfterDiscount;
+
+console.log("Subtotal before tax:", formatMoney(subtotalBeforeTax));
+console.log("Tax:", formatMoney(taxAfterDiscount));
+console.log("Final total:", formatMoney(finalTotal));
+
+const taxIfBeforeDiscount = calculateTax(10 * 6 + 4 * 2);
+console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));
+console.log("Tax was taken after discount:", taxAfterDiscount < taxIfBeforeDiscount);
+
+console.log("Subtotal before tax:", formatMoney(subtotalBeforeTax));
+console.log("Tax:", formatMoney(taxAfterDiscount));
+console.log("Final total:", formatMoney(finalTotal));
+console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));
+console.log("Tax was taken after discount:", taxAfterDiscount < taxIfBeforeDiscount);}
+
+
+
+function calculateDiscountedLineTotal(price, quantity) {
+  const lineTotal = calculateLineTotal(price, quantity);
+  if (quantity > 5) return lineTotal * 0.95;
+  return lineTotal;
+}
+
+const line1 = calculateDiscountedLineTotal(10, 6);
+const line2 = calculateDiscountedLineTotal(4, 2);
+
+const subtotalBeforeTax = line1 + line2;
+const taxAfterDiscount = calculateTax(subtotalBeforeTax);
+const finalTotal = subtotalBeforeTax + taxAfterDiscount;
+
+console.log("Subtotal before tax:", formatMoney(subtotalBeforeTax));
+console.log("Tax:", formatMoney(taxAfterDiscount));
+console.log("Final total:", formatMoney(finalTotal));
+
+const taxIfBeforeDiscount = calculateTax(10 * 6 + 4 * 2);
+console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));
+console.log("Tax was taken after discount:", taxAfterDiscount < taxIfBeforeDiscount);
+
+
+}try {
+  calculateTax(-1);
+} catch (error) {
+  console.log("Caught:", error.message);
+}
