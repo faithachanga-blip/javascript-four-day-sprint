@@ -133,3 +133,47 @@ function formatMoney(amount) {
 console.log(calculateTax(37.5));              // 3
 console.log(formatMoney(40.5));               // $40.50
 console.log(formatMoney(calculateTax(37.5))); // $3.00s
+
+function printReceipt(items) {
+  let subtotal = 0;
+  for (const item of items) {
+    const lineTotal = calculateLineTotal(item.price, item.quantity);
+    console.log(`${item.name} x${item.quantity}: ${formatMoney(lineTotal)}`);
+    subtotal = subtotal + lineTotal;
+  }
+  const tax = calculateTax(subtotal);
+  console.log("Subtotal:", formatMoney(subtotal));
+  console.log("Tax:", formatMoney(tax));
+  console.log("Total:", formatMoney(subtotal + tax));
+}
+
+printReceipt([
+  { name: "Notebook", price: 12.5, quantity: 3 },
+  { name: "Pen", price: 2, quantity: 4 }
+]);
+
+console.log(calculateLineTotal(10, 0));       // 0 (zero quantity)
+console.log(calculateLineTotal(0.1, 3));      // decimal price, see what prints
+try {
+  calculateLineTotal(-5, 2);                  // negative price
+} catch (error) {
+  console.log("Caught:", error.message);
+}
+try {
+  calculateLineTotal("abc", 2);               // invalid price
+} catch (error) {
+  console.log("Caught:", error.message);
+}
+
+console.log(calculateLineTotal(10, 0));       // 0 (zero quantity)
+console.log(calculateLineTotal(0.1, 3));      // decimal price, see what prints
+try {
+  calculateLineTotal(-5, 2);                  // negative price
+} catch (error) {
+  console.log("Caught:", error.message);
+}
+try {
+  calculateLineTotal("abc", 2);               // invalid price
+} catch (error) {
+  console.log("Caught:", error.message);
+}
