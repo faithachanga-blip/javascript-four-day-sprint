@@ -213,3 +213,31 @@ console.log(afterAdd.length);     // 6
   const newId = tasks.length + 1;
   return [...tasks, { id: newId, title: title.trim(), completed: false, priority }];
 }
+
+function completeTask(tasks, id) {
+  return tasks.map(task => task.id === id ? { ...task, completed: true } : task);
+}
+
+function deleteTask(tasks, id) {
+  return tasks.filter(task => task.id !== id);
+}
+
+function renameTask(tasks, id, newTitle) {
+  if (!newTitle || !newTitle.trim()) return tasks;   // blank title: unchanged
+  return tasks.map(task => task.id === id ? { ...task, title: newTitle.trim() } : task);
+}
+
+console.log(completeTask(sampleTasks, 1)[0].completed);  // true
+console.log(sampleTasks[0].completed);                   // false (original unchanged)
+console.log(deleteTask(sampleTasks, 2).length);          // 4
+console.log(renameTask(sampleTasks, 3, "Write intro v2")[2].title); // Write intro v2
+console.log(deleteTask(sampleTasks, 99).length);         // 5 (unknown id: nothing changes)
+
+function toggleTask(tasks, id) {
+  return tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task);
+}
+
+const toggled = toggleTask(sampleTasks, 1);
+console.log(toggled[0].completed);                // true
+console.log(sampleTasks[0].completed);            // false (original not mutated)
+console.log(toggleTask(sampleTasks, 99).length);  // 5 (unknown id keeps all items)
