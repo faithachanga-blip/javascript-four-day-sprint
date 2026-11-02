@@ -17,3 +17,12 @@ n % 3 === 0 means there is no remainder, so n is a multiple of 3.
 4. calculateLineTotal("abc", 2): expected an error, got "Caught" message.
 5. formatMoney(0): expected $0.00, got $0.00.
 6. calculateTax(-1): expected an error, got "Caught" message.
+
+## Day 1: Logic Challenge 4
+Quantities above 5 get 5% off that line (multiply by 0.95). Tax is
+calculated after the discount. Tax after discount was $5.20 and tax
+before discount would have been $5.44, so the order matters.
+
+## Day 1 reflection
+I learned values, conditions, loops and functions. My hardest bug was
+my HTML file saved as index.html.txt, so the browser showed code as text.
