@@ -26,3 +26,9 @@ before discount would have been $5.44, so the order matters.
 ## Day 1 reflection
 I learned values, conditions, loops and functions. My hardest bug was
 my HTML file saved as index.html.txt, so the browser showed code as text.
+
+## Day 2: Logic Challenge 5 (toggleTask)
+toggleTask uses map to return a new array. Only the task with the matching
+id gets completed flipped with !. The original array is unchanged, which I
+proved by logging sampleTasks[0].completed (still false). An unknown id
+keeps all 5 tasks.
