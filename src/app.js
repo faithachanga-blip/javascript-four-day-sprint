@@ -89,3 +89,22 @@ for (const price of prices) {
 
 console.log("Total:", sum);              // 80
 console.log("Above 20:", countAbove20);  // 2
+
+function fizzBuzz(limit) {
+  const results = [];
+  for (let n = 1; n <= limit; n++) {
+    if (n % 3 === 0 && n % 5 === 0) {
+      results.push("FizzBuzz");
+    } else if (n % 3 === 0) {
+      results.push("Fizz");
+    } else if (n % 5 === 0) {
+      results.push("Buzz");
+    } else {
+      results.push(n);
+    }
+  }
+  return results;
+}
+
+console.log(fizzBuzz(15));
+console.log(fizzBuzz(16));
