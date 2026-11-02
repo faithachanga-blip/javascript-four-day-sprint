@@ -165,15 +165,12 @@ try {
   console.log("Caught:", error.message);
 }
 
-console.log(calculateLineTotal(10, 0));       // 0 (zero quantity)
-console.log(calculateLineTotal(0.1, 3));      // decimal price, see what prints
+
+
+
+console.log(formatMoney(0));               // $0.00
 try {
-  calculateLineTotal(-5, 2);                  // negative price
-} catch (error) {
-  console.log("Caught:", error.message);
-}
-try {
-  calculateLineTotal("abc", 2);               // invalid price
+  calculateTax(-1);                        // negative amount
 } catch (error) {
   console.log("Caught:", error.message);
 }
