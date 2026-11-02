@@ -47,3 +47,15 @@ console.log(`Version 1: ${wholeHours} hours and ${leftoverMinutes} minutes`);
 
 // Challenge 1, version 2: Math.floor and remainder
 console.log(`Version 2: ${Math.floor(137 / 60)} hours and ${137 % 60} minutes`);
+
+function getDiscountedTotal(total, member) {
+  if (!Number.isFinite(total) || total < 0) return null;
+  if (member && total >= 50) return total * 0.9;
+  return total;
+}
+
+console.log(getDiscountedTotal(50, true));    // 45
+console.log(getDiscountedTotal(80, false));   // 80
+console.log(getDiscountedTotal(80, true));    // 72
+console.log(getDiscountedTotal(49.99, true)); // 49.99
+console.log(getDiscountedTotal(-5, true));    // nulls
