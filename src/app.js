@@ -108,3 +108,28 @@ function fizzBuzz(limit) {
 
 console.log(fizzBuzz(15));
 console.log(fizzBuzz(16));
+
+function calculateLineTotal(price, quantity) {
+  if (!Number.isFinite(price) || !Number.isInteger(quantity) || price < 0 || quantity < 0) {
+    throw new Error("Price and quantity must be valid non-negative numbers.");
+  }
+  return price * quantity;
+}
+
+console.log(calculateLineTotal(12.5, 3)); // 37.5
+console.log(calculateLineTotal(10, 0));   // 0
+
+function calculateTax(amount, rate = 0.08) {
+  if (!Number.isFinite(amount) || amount < 0) {
+    throw new Error("Amount must be a valid non-negative number.");
+  }
+  return amount * rate;
+}
+
+function formatMoney(amount) {
+  return "$" + amount.toFixed(2);
+}
+
+console.log(calculateTax(37.5));              // 3
+console.log(formatMoney(40.5));               // $40.50
+console.log(formatMoney(calculateTax(37.5))); // $3.00s
