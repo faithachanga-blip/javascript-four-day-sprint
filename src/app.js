@@ -184,3 +184,32 @@ console.log("Final total:", formatMoney(finalTotal));
 const taxIfBeforeDiscount = calculateTax(10 * 6 + 4 * 2);
 console.log("Tax before discount:", formatMoney(taxIfBeforeDiscount));
 console.log("Tax was taken after discount:", taxAfterDiscount < taxIfBeforeDiscount);
+
+// ===== Day 2 =====
+const sampleTasks = [
+  { id: 1, title: "Read brief", completed: false, priority: "high" },
+  { id: 2, title: "Draft outline", completed: true, priority: "medium" },
+  { id: 3, title: "Write intro", completed: false, priority: "low" },
+  { id: 4, title: "Review notes", completed: false, priority: "high" },
+  { id: 5, title: "Send update", completed: true, priority: "medium" }
+];
+
+console.table(sampleTasks);
+console.log(sampleTasks[0].title);   // Read brief
+
+function addTask(tasks, title, priority = "medium") {
+  if (!title || !title.trim()) return tasks;   // blank title: return unchanged
+  const newId = tasks.length + 1;
+  // YOUR LINE: return a NEW array containing all old tasks plus one new task
+  // hint: use [...tasks, { ... }] with id, title, completed: false, priority
+}
+
+const afterAdd = addTask(sampleTasks, "Plan meeting", "low");
+console.log(sampleTasks.length);  // 5 (original unchanged)
+console.log(afterAdd.length);     // 6
+
+  function addTask(tasks, title, priority = "medium") {
+  if (!title || !title.trim()) return tasks;
+  const newId = tasks.length + 1;
+  return [...tasks, { id: newId, title: title.trim(), completed: false, priority }];
+}
