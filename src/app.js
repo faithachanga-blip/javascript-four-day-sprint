@@ -259,3 +259,22 @@ const completedByPriority = sampleTasks.reduce((counts, task) => {
   return counts;
 }, {});
 console.log(completedByPriority);              // { medium: 2 }
+
+function summarizePurchases(purchases) {
+  if (purchases.length === 0) {
+    return { total: 0, count: 0, average: 0, mostExpensive: null };
+  }
+  const total = purchases.reduce((sum, p) => sum + p.amount, 0);
+  const count = purchases.length;
+  const average = total / count;
+  const mostExpensive = purchases.reduce((best, p) => p.amount > best.amount ? p : best);
+  return { total, count, average, mostExpensive };
+}
+
+console.log(summarizePurchases([]));
+console.log(summarizePurchases([{ name: "Pen", amount: 2 }]));
+console.log(summarizePurchases([
+  { name: "Pen", amount: 2 },
+  { name: "Book", amount: 15 },
+  { name: "Bag", amount: 15 }
+]));
