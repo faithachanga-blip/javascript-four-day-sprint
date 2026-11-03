@@ -363,3 +363,24 @@ function getTaskStats(tasks) {
 console.log(getTaskStats([]));
 console.log(getTaskStats(sampleTasks));
   
+
+// ===== Day 3 =====
+const taskList = document.querySelector("#task-list");
+
+function renderTasks(tasks) {
+  taskList.innerHTML = "";
+  if (tasks.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "No tasks yet.";
+    taskList.appendChild(li);
+    return;
+  }
+  for (const task of tasks) {
+    const li = document.createElement("li");
+    li.textContent = `${task.title} (${task.priority})`;
+    if (task.completed) li.style.textDecoration = "line-through";
+    taskList.appendChild(li);
+  }
+}
+
+renderTasks(sampleTasks);
