@@ -48,3 +48,8 @@ I put one click listener on the task list instead of one per button.
 closest("button[data-action]") finds which button was clicked, and
 data-task-id tells me which task. Handlers only update currentTasks, and
 renderTasks shows it, so there is one source of truth.
+
+## Day 3: Logic Challenge 10 (composable filters)
+getVisibleTasks is a pure function: it searches first, then filters by
+status, and returns a new list without changing currentTasks. Clicking
+All again shows every task, which proves the stored data was not modified.
