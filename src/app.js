@@ -384,3 +384,20 @@ function renderTasks(tasks) {
 }
 
 renderTasks(sampleTasks);
+
+function searchTasks(tasks, query) {
+  const q = query.trim().toLowerCase();
+  if (q === "") return tasks;
+  // YOUR LINE: return tasks whose title includes q, ignoring case
+  // hint: return tasks.filter(t => t.title.toLowerCase().includes(q));
+}
+
+const searchBox = document.querySelector("#search");
+searchBox.addEventListener("input", () => {
+  renderTasks(searchTasks(sampleTasks, searchBox.value));
+});
+function searchTasks(tasks, query) {
+  const q = query.trim().toLowerCase();
+  if (q === "") return tasks;
+  return tasks.filter(t => t.title.toLowerCase().includes(q));
+}
