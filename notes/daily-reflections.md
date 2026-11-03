@@ -53,3 +53,14 @@ renderTasks shows it, so there is one source of truth.
 getVisibleTasks is a pure function: it searches first, then filters by
 status, and returns a new list without changing currentTasks. Clicking
 All again shows every task, which proves the stored data was not modified.
+
+## Day 3: Logic Challenge 11 (duplicate prevention)
+validateTaskInput trims the title, checks length 1 to 80, and compares
+lowercase versions so "Write tests" and " write tests " count as the same.
+On error the form is not reset, so the typed text is kept.
+
+
+## Day 3: Logic Challenge 11 (duplicate prevention)
+validateTaskInput trims the title, checks length 1 to 80, and compares
+lowercase versions so "Write tests" and " write tests " count as the same.
+On error the form is not reset, so the typed text is kept.
