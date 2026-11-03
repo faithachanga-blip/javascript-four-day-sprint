@@ -32,3 +32,8 @@ toggleTask uses map to return a new array. Only the task with the matching
 id gets completed flipped with !. The original array is unchanged, which I
 proved by logging sampleTasks[0].completed (still false). An unknown id
 keeps all 5 tasks.
+
+## Day 2: Logic Challenge 8 (task statistics)
+An empty list returns 0% so I do not divide by zero, which would give NaN.
+reduce builds the priority counts one task at a time. total = completed + open,
+and the priority counts add up to total.

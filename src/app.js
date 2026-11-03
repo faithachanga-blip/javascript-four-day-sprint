@@ -347,3 +347,19 @@ class Reminder extends Task {
 const r = new Reminder(10, "Submit report", "high", "2026-11-10");
 console.log(r.describe());   // Submit report (high) due 2026-11-10
 console.log(r.completed);    // false
+
+function getTaskStats(tasks) {
+  const total = tasks.length;
+  const completed = tasks.filter(t => t.completed).length;
+  const open = total - completed;
+  const completionRate = total === 0 ? 0 : Math.round((completed / total) * 100);
+  const byPriority = tasks.reduce((counts, t) => {
+    counts[t.priority] = (counts[t.priority] || 0) + 1;
+    return counts;
+  }, {});
+  return { total, completed, open, completionRate, byPriority };
+}
+
+console.log(getTaskStats([]));
+console.log(getTaskStats(sampleTasks));
+  
