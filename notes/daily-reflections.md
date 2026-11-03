@@ -64,3 +64,12 @@ On error the form is not reset, so the typed text is kept.
 validateTaskInput trims the title, checks length 1 to 80, and compares
 lowercase versions so "Write tests" and " write tests " count as the same.
 On error the form is not reset, so the typed text is kept.
+
+## Day 3: Logic Challenge 12 (corrupted storage)
+Recovery rule: if saved data is missing, not valid JSON, or not a list of
+valid tasks, the app ignores it and starts with the sample tasks.
+JSON.parse is inside try/catch so bad data cannot crash the page.
+
+## Day 3 reflection
+I learned DOM rendering, event delegation, form validation and localStorage.
+My hardest bug was duplicated code blocks causing "already declared" errors.
