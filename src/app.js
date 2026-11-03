@@ -368,6 +368,7 @@ console.log(getTaskStats(sampleTasks));
 const taskList = document.querySelector("#task-list");
 const searchBox = document.querySelector("#search");
 let currentTasks = [...sampleTasks];
+let currentStatus = "all";
 
 function renderTasks(tasks) {
   taskList.innerHTML = "";
@@ -406,28 +407,10 @@ function searchTasks(tasks, query) {
   return tasks.filter(t => t.title.toLowerCase().includes(q));
 }
 
-searchBox.addEventListener("input", () => {
-  renderTasks(searchTasks(currentTasks, searchBox.value));
-});
-
-taskList.addEventListener("click", event => {
-  const button = event.target.closest("button[data-action]");
-  if (!button) return;
-  const id = Number(button.dataset.taskId);
-  if (button.dataset.action === "toggle") currentTasks = toggleTask(currentTasks, id);
-  if (button.dataset.action === "delete") currentTasks = deleteTask(currentTasks, id);
-  renderTasks(searchTasks(currentTasks, searchBox.value));
-});
-
-renderTasks(currentTasks);
-
-// ===== Logic Challenge 10 =====
-let currentStatus = "all";
-
 function getVisibleTasks(tasks, query, status) {
   const searched = searchTasks(tasks, query);
   if (status === "open") return searched.filter(t => !t.completed);
-  // YOUR LINE: the "completed" case, same pattern as "open"
+  if (status === "completed") return searched.filter(t => t.completed);
   return searched;
 }
 
@@ -435,11 +418,22 @@ function refresh() {
   renderTasks(getVisibleTasks(currentTasks, searchBox.value, currentStatus));
 }
 
-document.querySelector("#filters").addEventListener("click", event => {
+searchBox.addEventListener("input", refresh);
+
+taskList.addEventListener("click", event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+  const id = Number(button.dataset.taskId);
+  if (button.dataset.action === "toggle") currentTasks = toggleTask(currentTasks, id);
+  if (button.dataset.action === "delete") currentTasks = deleteTask(currentTasks, id);
+  refresh();
+});
+
+document.addEventListener("click", event => {
   const button = event.target.closest("button[data-status]");
   if (!button) return;
   currentStatus = button.dataset.status;
   refresh();
 });
 
-searchBox.addEventListener("input", refresh);s
+refresh();
