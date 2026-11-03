@@ -1,4 +1,4 @@
-## Day 1: Loops
+##Day 1: Loops
 sum starts at 0 because I add each price to it. The loop visits each price
 once, adds it to sum, and counts it if it is above 20.
 Result: total 80, two prices above 20.
@@ -42,3 +42,9 @@ and the priority counts add up to total.
 Search lowercases both the title and the query, and trims spaces, so
 READ, read and "  read  " all match. It uses filter, which returns a new
 list for display, so the stored tasks are never changed.
+
+## Day 3: Events and delegation
+I put one click listener on the task list instead of one per button.
+closest("button[data-action]") finds which button was clicked, and
+data-task-id tells me which task. Handlers only update currentTasks, and
+renderTasks shows it, so there is one source of truth.
