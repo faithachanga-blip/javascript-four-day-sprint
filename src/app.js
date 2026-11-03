@@ -420,3 +420,26 @@ taskList.addEventListener("click", event => {
 });
 
 renderTasks(currentTasks);
+
+// ===== Logic Challenge 10 =====
+let currentStatus = "all";
+
+function getVisibleTasks(tasks, query, status) {
+  const searched = searchTasks(tasks, query);
+  if (status === "open") return searched.filter(t => !t.completed);
+  // YOUR LINE: the "completed" case, same pattern as "open"
+  return searched;
+}
+
+function refresh() {
+  renderTasks(getVisibleTasks(currentTasks, searchBox.value, currentStatus));
+}
+
+document.querySelector("#filters").addEventListener("click", event => {
+  const button = event.target.closest("button[data-status]");
+  if (!button) return;
+  currentStatus = button.dataset.status;
+  refresh();
+});
+
+searchBox.addEventListener("input", refresh);s
