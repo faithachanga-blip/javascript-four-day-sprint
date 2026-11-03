@@ -241,3 +241,21 @@ const toggled = toggleTask(sampleTasks, 1);
 console.log(toggled[0].completed);                // true
 console.log(sampleTasks[0].completed);            // false (original not mutated)
 console.log(toggleTask(sampleTasks, 99).length);  // 5 (unknown id keeps all items)
+
+// ===== Block 2: array methods =====
+const openTitles = sampleTasks
+  .filter(task => !task.completed)
+  .map(task => task.title);
+console.log(openTitles);                       // ["Read brief", "Write intro", "Review notes"]
+
+console.log(sampleTasks.find(task => task.id === 3));   // the "Write intro" task
+console.log(sampleTasks.some(task => task.completed));  // true  (at least one done)
+console.log(sampleTasks.every(task => task.completed)); // false (not all done)
+
+const completedByPriority = sampleTasks.reduce((counts, task) => {
+  if (task.completed) {
+    counts[task.priority] = (counts[task.priority] || 0) + 1;
+  }
+  return counts;
+}, {});
+console.log(completedByPriority);              // { medium: 2 }
