@@ -37,3 +37,8 @@ keeps all 5 tasks.
 An empty list returns 0% so I do not divide by zero, which would give NaN.
 reduce builds the priority counts one task at a time. total = completed + open,
 and the priority counts add up to total.
+
+## Day 3: Logic Challenge 9 (search)
+Search lowercases both the title and the query, and trims spaces, so
+READ, read and "  read  " all match. It uses filter, which returns a new
+list for display, so the stored tasks are never changed.
