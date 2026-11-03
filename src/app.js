@@ -366,6 +366,8 @@ console.log(getTaskStats(sampleTasks));
 
 // ===== Day 3 =====
 const taskList = document.querySelector("#task-list");
+const searchBox = document.querySelector("#search");
+let currentTasks = [...sampleTasks];
 
 function renderTasks(tasks) {
   taskList.innerHTML = "";
@@ -377,27 +379,44 @@ function renderTasks(tasks) {
   }
   for (const task of tasks) {
     const li = document.createElement("li");
-    li.textContent = `${task.title} (${task.priority})`;
-    if (task.completed) li.style.textDecoration = "line-through";
+    const span = document.createElement("span");
+    span.textContent = `${task.title} (${task.priority}) `;
+    if (task.completed) span.style.textDecoration = "line-through";
+
+    const completeBtn = document.createElement("button");
+    completeBtn.type = "button";
+    completeBtn.textContent = task.completed ? "Undo" : "Complete";
+    completeBtn.dataset.action = "toggle";
+    completeBtn.dataset.taskId = task.id;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.dataset.action = "delete";
+    deleteBtn.dataset.taskId = task.id;
+
+    li.append(span, completeBtn, deleteBtn);
     taskList.appendChild(li);
   }
 }
 
-renderTasks(sampleTasks);
-
-function searchTasks(tasks, query) {
-  const q = query.trim().toLowerCase();
-  if (q === "") return tasks;
-  // YOUR LINE: return tasks whose title includes q, ignoring case
-  // hint: return tasks.filter(t => t.title.toLowerCase().includes(q));
-}
-
-const searchBox = document.querySelector("#search");
-searchBox.addEventListener("input", () => {
-  renderTasks(searchTasks(sampleTasks, searchBox.value));
-});
 function searchTasks(tasks, query) {
   const q = query.trim().toLowerCase();
   if (q === "") return tasks;
   return tasks.filter(t => t.title.toLowerCase().includes(q));
 }
+
+searchBox.addEventListener("input", () => {
+  renderTasks(searchTasks(currentTasks, searchBox.value));
+});
+
+taskList.addEventListener("click", event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+  const id = Number(button.dataset.taskId);
+  if (button.dataset.action === "toggle") currentTasks = toggleTask(currentTasks, id);
+  if (button.dataset.action === "delete") currentTasks = deleteTask(currentTasks, id);
+  renderTasks(searchTasks(currentTasks, searchBox.value));
+});
+
+renderTasks(currentTasks);
