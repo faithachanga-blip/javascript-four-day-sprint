@@ -333,3 +333,17 @@ list.findById(1).complete();
 console.log(list.getOpenTasks().length);  // 1
 list.remove(2);
 console.log(list.getOpenTasks().length);  // 0
+
+class Reminder extends Task {
+  constructor(id, title, priority, dueDate) {
+    super(id, title, priority);
+    this.dueDate = dueDate;
+  }
+  describe() {
+    return `${super.describe()} due ${this.dueDate}`;
+  }
+}
+
+const r = new Reminder(10, "Submit report", "high", "2026-11-10");
+console.log(r.describe());   // Submit report (high) due 2026-11-10
+console.log(r.completed);    // false
