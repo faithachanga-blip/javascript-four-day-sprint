@@ -467,3 +467,36 @@ taskForm.addEventListener("submit", event => {
   titleInput.focus();
   refresh();
 });
+
+// ===== localStorage =====
+const STORAGE_KEY = "jsSprint.tasks.v1";
+
+function saveTasks(tasks) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    return true;
+  } catch (error) {
+    console.error("Save failed", error);
+    return false;
+  }
+}
+
+function loadTasks() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw === null) return null;
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data)) return null;
+    const valid = data.every(t => t && typeof t.id === "number" && typeof t.title === "string");
+    return valid ? data : null;
+  } catch (error) {
+    console.error("Load failed", error);
+    return null;
+  }
+}
+
+const saved = loadTasks();
+if (saved) {
+  currentTasks = saved;
+  refresh();
+}
