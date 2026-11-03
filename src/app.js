@@ -437,3 +437,33 @@ document.addEventListener("click", event => {
 });
 
 refresh();
+
+function validateTaskInput(title, tasks) {
+  const clean = title.trim();
+  if (clean.length < 1 || clean.length > 80) {
+    return { error: "Title must be 1 to 80 characters." };
+  }
+  const exists = tasks.some(t => t.title.trim().toLowerCase() === clean.toLowerCase());
+  if (exists) return { error: "That title already exists." };
+  return { value: clean };
+}
+
+const taskForm = document.querySelector("#task-form");
+const titleInput = document.querySelector("#title");
+const formError = document.querySelector("#form-error");
+
+taskForm.addEventListener("submit", event => {
+  event.preventDefault();
+  const data = new FormData(taskForm);
+  const result = validateTaskInput(data.get("title"), currentTasks);
+  if (result.error) {
+    formError.textContent = result.error;
+    return;
+  }
+  const nextId = currentTasks.length ? Math.max(...currentTasks.map(t => t.id)) + 1 : 1;
+  currentTasks = [...currentTasks, { id: nextId, title: result.value, completed: false, priority: data.get("priority") }];
+  formError.textContent = "Task added.";
+  taskForm.reset();
+  titleInput.focus();
+  refresh();
+});

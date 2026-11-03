@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +11,28 @@
     <h1>Focus Board</h1>
   </header>
   <main>
+    <form id="task-form" novalidate>
+      <label for="title">New task</label>
+      <input id="title" name="title" type="text">
+      <label for="priority">Priority</label>
+      <select id="priority" name="priority">
+        <option value="low">low</option>
+        <option value="medium" selected>medium</option>
+        <option value="high">high</option>
+      </select>
+      <button type="submit">Add</button>
+      <p id="form-error" aria-live="polite"></p>
+    </form>
+
     <label for="search">Search tasks</label>
     <input id="search" type="search">
+
+    <div id="filters">
+      <button type="button" data-status="all">All</button>
+      <button type="button" data-status="open">Open</button>
+      <button type="button" data-status="completed">Completed</button>
+    </div>
+
     <ul id="task-list"></ul>
     <p id="status" aria-live="polite"></p>
   </main>
@@ -21,10 +40,3 @@
   <script src="src/api.js"></script>
 </body>
 </html>
-
-
-    <div id="filters">
-      <button type="button" data-status="all">All</button>
-      <button type="button" data-status="open">Open</button>
-      <button type="button" data-status="completed">Completed</button>
-    </div>
