@@ -305,3 +305,31 @@ console.log(t.completed);   // false
 t.complete();
 console.log(t.completed);   // true
 console.log(t.describe());  // Read brief (high)
+
+class TaskList {
+  #tasks = [];
+
+  add(task) {
+    this.#tasks.push(task);
+  }
+
+  remove(id) {
+    this.#tasks = this.#tasks.filter(t => t.id !== id);
+  }
+
+  findById(id) {
+    return this.#tasks.find(t => t.id === id);
+  }
+
+  getOpenTasks() {
+    return this.#tasks.filter(t => !t.completed);
+  }
+}
+
+const list = new TaskList();
+list.add(new Task(1, "Read brief", "high"));
+list.add(new Task(2, "Draft outline"));
+list.findById(1).complete();
+console.log(list.getOpenTasks().length);  // 1
+list.remove(2);
+console.log(list.getOpenTasks().length);  // 0
