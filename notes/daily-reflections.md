@@ -86,3 +86,18 @@ Before a delete, I remember the task and its position in lastDeleted.
 Undo puts it back at that position with all its data, then clears
 lastDeleted. A new delete overwrites it, so only the most recent delete
 can be undone.
+
+## Day 4: Logic Challenge 16 (export and import)
+Export downloads currentTasks as JSON. Import parses the file inside
+try/catch, validates the shape with isValidTaskList, and asks for
+confirmation before replacing data. A bad file never changes current tasks.
+
+## Day 4: Logic Challenge 13 (Promise.all)
+Promise.all runs two independent requests together and waits for both.
+If any one rejects, Promise.all rejects right away, so I catch it and
+show a message. Local tasks still work because they never depend on fetch.
+
+## Day 4: Logic Challenge 16 (export and import)
+Export downloads currentTasks as JSON. Import parses the file inside
+try/catch, validates the shape, and asks for confirmation before replacing
+data. A bad file never changes current tasks.s

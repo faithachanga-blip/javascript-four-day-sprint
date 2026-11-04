@@ -601,3 +601,22 @@ document.addEventListener("change", async event => {
     event.target.value = "";
   }
 });
+
+// ===== Challenge 13: parallel requests =====
+async function loadTwoSources() {
+  const [todos, users] = await Promise.all([
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=3").then(r => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    }),
+    fetch("https://jsonplaceholder.typicode.com/users?_limit=3").then(r => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+  ]);
+  return { todos: normalizeSuggestions(todos), users: users.map(u => u.name) };
+}
+
+loadTwoSources()
+  .then(result => console.log("Both loaded:", result))
+  .catch(error => console.log("One request failed:", error.message, "- local tasks still work"));
