@@ -500,3 +500,47 @@ if (saved) {
   currentTasks = saved;
   refresh();
 }
+
+// ===== Day 4: suggestions =====
+function normalizeSuggestions(data) {
+  if (!Array.isArray(data)) return [];
+  return data
+    .filter(item => item && typeof item.title === "string" && item.title.trim() !== "")
+    .slice(0, 5)
+    .map(item => ({ title: item.title.trim() }));
+}
+
+async function loadSuggestions() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=5");
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const data = await response.json();
+  return normalizeSuggestions(data);
+}
+
+const suggestBtn = document.querySelector("#load-suggestions");
+const suggestStatus = document.querySelector("#suggestions-status");
+const suggestList = document.querySelector("#suggestions-list");
+
+suggestBtn.addEventListener("click", async () => {
+  suggestBtn.disabled = true;
+  suggestStatus.textContent = "Loading...";
+  suggestList.innerHTML = "";
+  try {
+    const items = await loadSuggestions();
+    if (items.length === 0) {
+      suggestStatus.textContent = "No suggestions found.";
+    } else {
+      suggestStatus.textContent = "";
+      for (const item of items) {
+        const li = document.createElement("li");
+        li.textContent = item.title;
+        suggestList.appendChild(li);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    suggestStatus.textContent = "Could not load suggestions. Click the button to retry.";
+  } finally {
+    suggestBtn.disabled = false;
+  }
+});
