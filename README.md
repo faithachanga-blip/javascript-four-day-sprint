@@ -28,3 +28,8 @@ Suggestions need internet. Task ids are simple numbers.
 
 ## What I learned
 (2-3 sentences: what you learned, your hardest bug, next improvement.)
+
+I learned how to build a working app with plain JavaScript: functions, arrays,
+classes, the DOM, localStorage and fetch. My hardest bug was my files being saved
+with a hidden .txt ending, and later duplicated code causing "already declared"
+errors. Next I would add a rename button and show task counts on the page.
