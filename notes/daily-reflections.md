@@ -73,3 +73,10 @@ JSON.parse is inside try/catch so bad data cannot crash the page.
 ## Day 3 reflection
 I learned DOM rendering, event delegation, form validation and localStorage.
 My hardest bug was duplicated code blocks causing "already declared" errors.
+
+## Day 4: Fetch and Challenge 14
+loadSuggestions checks response.ok before response.json(), because HTTP
+errors do not reject fetch. normalizeSuggestions is pure: it accepts only
+an array, keeps items with a non-empty string title, limits to five, and
+returns a consistent shape. When offline, the app shows an error message
+and a retry, and local tasks stay usable and are never changed by remote data.
