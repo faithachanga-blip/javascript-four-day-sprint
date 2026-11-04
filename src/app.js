@@ -565,3 +565,39 @@ document.addEventListener("click", event => {
   saveTasks(currentTasks);
   refresh();
 });
+
+// ===== Export / Import =====
+document.addEventListener("click", event => {
+  if (!event.target.closest("#export-json")) return;
+  const blob = new Blob([JSON.stringify(currentTasks, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "focus-board-tasks.json";
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+function isValidTaskList(data) {
+  return Array.isArray(data) && data.every(t =>
+    t && typeof t.id === "number" && typeof t.title === "string" &&
+    t.title.trim() !== "" && typeof t.completed === "boolean");
+}
+
+document.addEventListener("change", async event => {
+  if (event.target.id !== "import-json") return;
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const data = JSON.parse(await file.text());
+    if (!isValidTaskList(data)) throw new Error("Invalid task file");
+    if (!confirm("Replace current tasks with the imported ones?")) return;
+    currentTasks = data;
+    saveTasks(currentTasks);
+    refresh();
+  } catch (error) {
+    alert("Import failed: the file is not a valid task list. Your tasks were not changed.");
+  } finally {
+    event.target.value = "";
+  }
+});
