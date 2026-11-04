@@ -544,3 +544,24 @@ suggestBtn.addEventListener("click", async () => {
     suggestBtn.disabled = false;
   }
 });
+// ===== Undo delete =====
+taskList.addEventListener("click", event => {
+  const button = event.target.closest('button[data-action="delete"]');
+  if (!button) return;
+  const id = Number(button.dataset.taskId);
+  const index = currentTasks.findIndex(t => t.id === id);
+  if (index !== -1) lastDeleted = { task: currentTasks[index], index };
+}, true);
+
+document.addEventListener("click", event => {
+  if (!event.target.closest("#undo-delete")) return;
+  if (!lastDeleted) return;
+  currentTasks = [
+    ...currentTasks.slice(0, lastDeleted.index),
+    lastDeleted.task,
+    ...currentTasks.slice(lastDeleted.index)
+  ];
+  lastDeleted = null;
+  saveTasks(currentTasks);
+  refresh();
+});

@@ -80,3 +80,9 @@ errors do not reject fetch. normalizeSuggestions is pure: it accepts only
 an array, keeps items with a non-empty string title, limits to five, and
 returns a consistent shape. When offline, the app shows an error message
 and a retry, and local tasks stay usable and are never changed by remote data.
+
+## Day 4: Logic Challenge 15 (undo delete)
+Before a delete, I remember the task and its position in lastDeleted.
+Undo puts it back at that position with all its data, then clears
+lastDeleted. A new delete overwrites it, so only the most recent delete
+can be undone.
